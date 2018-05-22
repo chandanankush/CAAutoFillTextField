@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'CAAutoFillTextField_Example' do
+  pod 'CAAutoFillTextField', :path => '../'
+
+  target 'CAAutoFillTextField_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
