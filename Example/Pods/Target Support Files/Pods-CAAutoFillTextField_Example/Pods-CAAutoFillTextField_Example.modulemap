@@ -1,0 +1,6 @@
+framework module Pods_CAAutoFillTextField_Example {
+  umbrella header "Pods-CAAutoFillTextField_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}
