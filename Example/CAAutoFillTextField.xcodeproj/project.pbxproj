@@ -24,7 +24,6 @@
 		8090DBBE649F68EF46055C05 /* Pods_CAAutoFillTextField_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BBB858610A0BBAA68348C8DA /* Pods_CAAutoFillTextField_Example.framework */; };
 		873B8AEB1B1F5CCA007FD442 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 873B8AEA1B1F5CCA007FD442 /* Main.storyboard */; };
 		95C729CCD6675A22F163A229 /* Pods_CAAutoFillTextField_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64500E0271EFC146C72A117B /* Pods_CAAutoFillTextField_Tests.framework */; };
-		AC25087120B46FDF00FAF020 /* CAAutoFillTextField.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC25087020B46FDF00FAF020 /* CAAutoFillTextField.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -76,7 +75,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC25087120B46FDF00FAF020 /* CAAutoFillTextField.framework in Frameworks */,
 				6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */,
 				6003F592195388D20070C39A /* UIKit.framework in Frameworks */,
 				6003F58E195388D20070C39A /* Foundation.framework in Frameworks */,
@@ -525,6 +523,7 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -541,6 +540,7 @@
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "org.cocoapods.demo.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
