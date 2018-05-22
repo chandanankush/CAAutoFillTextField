@@ -10,7 +10,7 @@
 
 @interface CAAutoCompleteObject : NSObject
 
-- (instancetype)initWithObjectName:(NSString *)objName AndID:(NSInteger)obID NS_DESIGNATED_INITIALIZER;
+- (instancetype)initWithObjectName:(NSString *)objName AndID:(NSInteger)obID;
 
 @property(nonatomic, strong) NSString *objName;
 @property(nonatomic, assign) NSInteger objID;
