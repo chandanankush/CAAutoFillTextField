@@ -1,5 +1,5 @@
 PODS:
-  - CAAutoFillTextField (0.1.0)
+  - CAAutoFillTextField (0.1.1)
 
 DEPENDENCIES:
   - CAAutoFillTextField (from `../`)
@@ -9,8 +9,8 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CAAutoFillTextField: 50c211879ebd566ed8175e21f99fcf0dc78799ef
+  CAAutoFillTextField: 075b51b1c1e881fdcec1eb3808345f9c9252e48e
 
-PODFILE CHECKSUM: dd3aee55ffcf05348a9935f1956d81f9740801bc
+PODFILE CHECKSUM: c55fa9b5d886d463078793294a8cc025e84f285b
 
-COCOAPODS: 1.5.2
+COCOAPODS: 1.12.1

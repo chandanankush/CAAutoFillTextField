@@ -25,18 +25,15 @@ TODO: Add long description of the pod here.
   # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'chandanankush' => 'chandan.ankush@gmail.com' }
-  s.source           = { :git => 'https://github.com/chandanankush/CAAutoFillTextField.git', :tag => "0.1.1" }
+  s.source           = { :git => 'https://github.com/chandanankush/CAAutoFillTextField.git', :branch => "master" }
   # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
-
-  s.ios.deployment_target = '8.0'
+  s.swift_version = '5.0'
+  s.ios.deployment_target = '15.0'
 
   s.source_files = 'CAAutoFillTextField/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'CAAutoFillTextField' => ['CAAutoFillTextField/Assets/*.png']
-  # }
+  s.resource_bundles = {
+     'CAAutoFillTextField' => ['CAAutoFillTextField/Assets/*.png']
+  }
 
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-    s.frameworks = 'UIKit'
-  # s.dependency 'AFNetworking', '~> 2.3'
 end
