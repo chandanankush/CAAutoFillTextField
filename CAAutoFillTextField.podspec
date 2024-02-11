@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
   s.name             = 'CAAutoFillTextField'
   s.version          = '0.1.1'
   s.summary          = 'iOS plugin to show dropdown'
-
+  s.module_name = 'CAAutoFillTextField'
 # This description is used to generate tags and improve search results.
 #   * Think: What does it do? Why did you write it? What is the focus?
 #   * Try to keep it short, snappy and to the point.
@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+                      TODO: Add long description of the pod here.
                        DESC
 
   s.homepage         = 'https://github.com/chandanankush/CAAutoFillTextField'
@@ -31,7 +31,6 @@ TODO: Add long description of the pod here.
   s.ios.deployment_target = '15.0'
 
   s.source_files = 'CAAutoFillTextField/Classes/**/*'
-  
   s.resource_bundles = {
      'CAAutoFillTextField' => ['CAAutoFillTextField/Assets/*.png']
   }
