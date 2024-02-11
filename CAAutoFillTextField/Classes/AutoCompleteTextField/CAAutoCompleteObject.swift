@@ -8,21 +8,17 @@
 
 import Foundation
 
-class CAAutoCompleteObject {
+public class CAAutoCompleteObject {
 
-    var objName:String!
-    var objID:Int
-    var isSelectable:Bool
-    var isDefaultSelected:Bool
+    var objName: String
+    var objID: Int
+    var isSelectable: Bool
+    var isDefaultSelected: Bool
 
-    required init(objName:String, AndID obID:Int) {
+    required public init(objName: String, AndID obID: Int) {
         self.objName = objName
         self.objID = obID
         self.isSelectable = true
         self.isDefaultSelected = false
-    }
-
-    func dealloc() {
-        self.objName = nil
     }
 }
