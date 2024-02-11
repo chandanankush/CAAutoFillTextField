@@ -22,9 +22,10 @@ public class CAAutoFillTextField : UIView {
     
     public var dataSourceArray = [CAAutoCompleteObject]()
     public var delegate: CAAutoFillDelegate?
+    private var latestTableHeight: CGFloat = 5.0
     
     lazy var txtField: UITextField = {
-        let txtFieldObj = UITextField(frame:CGRectMake(0, 0, 0, 0))
+        let txtFieldObj = UITextField(frame: CGRectMake(0, 0, 3, 22))
         txtFieldObj.borderStyle = .roundedRect
         txtFieldObj.autocorrectionType = .no
         txtFieldObj.textAlignment = .left
@@ -33,17 +34,16 @@ public class CAAutoFillTextField : UIView {
         txtFieldObj.returnKeyType = .done
         txtFieldObj.font = UIFont.systemFont(ofSize: 17.0)
         txtFieldObj.textColor = .black
-        txtFieldObj.clipsToBounds = false
         txtFieldObj.delegate = self
         return txtFieldObj
     }()
     
     lazy var autoCompleteTableView: UITableView = {
-        let autoCompleteTableViewObj = UITableView(frame: CGRectMake(0, 0, 0, 0), style:.plain)
+        let autoCompleteTableViewObj = UITableView(frame: CGRectMake(0, 0, 3, latestTableHeight), style:.plain)
         autoCompleteTableViewObj.isScrollEnabled = true
-        autoCompleteTableViewObj.isHidden = false
+        autoCompleteTableViewObj.isHidden = true
         autoCompleteTableViewObj.autoresizingMask = .flexibleWidth
-        autoCompleteTableViewObj.rowHeight = tableCellHeight
+        autoCompleteTableViewObj.estimatedRowHeight = tableCellHeight
         autoCompleteTableViewObj.delegate = self
         autoCompleteTableViewObj.dataSource = self
         return autoCompleteTableViewObj
@@ -54,7 +54,6 @@ public class CAAutoFillTextField : UIView {
         
         self.addSubview(txtField)
         self.addSubview(self.autoCompleteTableView)
-        self.backgroundColor = .clear
     }
 
     required override init(frame: CGRect) {
@@ -66,21 +65,19 @@ public class CAAutoFillTextField : UIView {
     
     override public func layoutSubviews() {
         super.layoutSubviews()
-        print("self frame", frame)
-        print("txtField frame", self.txtField.frame)
-        self.txtField.frame = self.frame
-        self.autoCompleteTableView.frame = CGRectMake(txtField.frame.origin.x, txtField.frame.origin.y + txtField.frame.size.height, frame.size.width - 5, 0)
-    }
-   
-    // Take string from Search Textfield and compare it with autocomplete array
-    func searchAutocompleteEntriesWithSubstring(substring:String) {
-        autoCompleteArray.removeAll()
-        autoCompleteArray = dataSourceArray.filter { $0.objName.lowercased() == substring.lowercased()}
-        self.autoCompleteTableView.isHidden = false
+        self.txtField.frame = self.bounds
+        self.autoCompleteTableView.frame = CGRectMake(txtField.frame.origin.x + 2, txtField.frame.origin.y + txtField.frame.size.height, frame.size.width - 2, latestTableHeight)
         
-        var tableRect:CGRect
-        var baseViewRect:CGRect
+        debugPrint("self frame", frame)
+        debugPrint("txtField frame", self.txtField.frame)
+        debugPrint("autoCompleteTableView frame", self.autoCompleteTableView.frame)
+    }
+    
+    func updateTableViewFrame() {
+        var tableRect: CGRect
+        var baseViewRect: CGRect
         if autoCompleteArray.count >= 3 {
+            latestTableHeight = (tableCellHeight * 3) + 30
             tableRect = CGRectMake(autoCompleteTableView.frame.origin.x,
                                    autoCompleteTableView.frame.origin.y,
                                    autoCompleteTableView.frame.size.width,
@@ -88,43 +85,53 @@ public class CAAutoFillTextField : UIView {
             baseViewRect = CGRectMake(self.frame.origin.x, 
                                       self.frame.origin.y,
                                       self.frame.size.width,
-                                      (tableCellHeight * 3) + 30)
+                                      latestTableHeight)
         }
 
         else if autoCompleteArray.count == 2 || autoCompleteArray.count == 1 {
+            latestTableHeight = (tableCellHeight * 2)
             tableRect = CGRectMake(autoCompleteTableView.frame.origin.x,
                                    autoCompleteTableView.frame.origin.y,
                                    autoCompleteTableView.frame.size.width,
-                                   tableCellHeight * 2)
-            baseViewRect = CGRectMake(self.frame.origin.x, 
+                                   latestTableHeight)
+            baseViewRect = CGRectMake(self.frame.origin.x,
                                       self.frame.origin.y,
                                       self.frame.size.width,
                                       (tableCellHeight * 2) + 30)
         }
 
         else {
+            latestTableHeight = 5
             tableRect = CGRectMake(autoCompleteTableView.frame.origin.x,
                                    autoCompleteTableView.frame.origin.y,
-                                   autoCompleteTableView.frame.size.width, 0.0)
-            baseViewRect = CGRectMake(self.frame.origin.x, 
+                                   autoCompleteTableView.frame.size.width, latestTableHeight)
+            baseViewRect = CGRectMake(self.frame.origin.x,
                                       self.frame.origin.y,
                                       self.frame.size.width,
-                                      tableCellHeight)
+                                      40)
         }
     
-        UIView.animate(withDuration: 0.5, delay: 1.0, options: [.curveEaseInOut], animations: {
+        UIView.animate(withDuration: 0.5, delay: 0.5, options: [.curveEaseInOut], animations: {
+           // self.frame = baseViewRect
             self.autoCompleteTableView.frame = tableRect
-            self.frame = baseViewRect
         }, completion: { _ in
-            debugPrint("Animation finished!")
+            //debugPrint("Animation finished!")
         })
 
         if autoCompleteArray.count == 0 {
             self.autoCompleteTableView.isHidden = true
         } else {
             self.autoCompleteTableView.isHidden = false
-            self.autoCompleteTableView.reloadData()
         }
+        self.autoCompleteTableView.reloadData()
+    }
+   
+    // Take string from Search Textfield and compare it with autocomplete array
+    func searchAutocompleteEntriesWithSubstring(substring:String) {
+        autoCompleteArray.removeAll()
+        let filteredData = dataSourceArray.filter { $0.objName.lowercased().contains(substring.lowercased())}
+        autoCompleteArray.append(contentsOf: filteredData)
+        updateTableViewFrame()
     }
 
     func finishedSearching() {
@@ -159,7 +166,7 @@ extension CAAutoFillTextField: UITableViewDataSource, UITableViewDelegate {
     }
 
     public func tableView(_ tableView:UITableView, didSelectRowAt indexPath:IndexPath) {
-        let object:CAAutoCompleteObject! = autoCompleteArray[indexPath.row]
+        let object:CAAutoCompleteObject = autoCompleteArray[indexPath.row]
         txtField.text = object.objName
         self.finishedSearching()
     }
